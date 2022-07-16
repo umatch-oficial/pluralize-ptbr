@@ -1,13 +1,23 @@
+// noinspection JSNonASCIINames,NonAsciiCharacters
+
 /**
  * Palavras com plural pré-determinado.
  */
 const exceptions = {
-  mal: 'males',
-  cônsul: 'cônsules',
-  mel: 'méis',
-  fel: 'féis',
+  alemão: 'alemães',
   cal: 'cais',
+  capitão: 'capitães',
+  caráter: 'carateres',
+  charlatão: 'charlatães',
+  cônsul: 'cônsules',
+  fel: 'féis',
+  júnior: 'juniores',
+  mal: 'males',
+  mel: 'méis',
   não: 'não',
+  pão: 'pães',
+  raiz: 'raízes',
+  sênior: 'seniores',
 };
 
 /**
@@ -16,8 +26,8 @@ const exceptions = {
  */
 const additions = [
   [/(a|e|i|o|u|ã|ãe)$/, 's'],
-  [/(r|z|n|ás)$/, 'es'],
-  [/(is|us|os)$/, ''],
+  [/(r|z|n|ás|ís)$/, 'es'],
+  [/(as|is|us|os|x)$/, ''],
 ];
 
 /**
@@ -25,15 +35,21 @@ const additions = [
  * têm a terminação substituída
  */
 const substitutions = [
-  [/al$/, 'ais'],
-  [/el$/, 'eis'],
-  [/ol$/, 'ois'],
-  [/ul$/, 'uis'],
-  [/il$/, 'is'],
-  [/m$/, 'ns'],
-  [/ês$/, 'eses'],
-  [/ão$/, 'ões'],
+  ['al$', 'ais'],
+  ['el$', 'eis'],
+  ['ol$', 'óis'],
+  ['ul$', 'uis'],
+  ['il$', 'is'],
+  ['m$', 'ns'],
+  ['(ês|és)$', 'eses'],
+  ['ão$', 'ões'],
 ];
+
+const consoantes = '[bcdfghjklmnpqrstvwxyz]';
+const vogais = '[aeiou]';
+const vogaisAcentuadas = '[áéíóú]';
+const silabaTonica = `${consoantes}*${vogais}*${vogaisAcentuadas}+${vogais}*${consoantes}*`;
+const silabaAtonica = `${consoantes}${vogais}+${consoantes}*`;
 
 const _plural = word => {
   if (Object.keys(exceptions).includes(word)) {
@@ -46,13 +62,27 @@ const _plural = word => {
     }
   }
 
-  for (const [regex, sub] of substitutions) {
+  for (const [pattern, sub] of substitutions) {
+    const regex = new RegExp(pattern);
+    const regexParoxitona = new RegExp(silabaTonica + pattern);
+    const regexProparoxitona = new RegExp(silabaTonica + silabaAtonica + pattern);
+    const palavraProparoxitona = word.match(regexProparoxitona);
+    const palavraParoxitona = word.match(regexParoxitona);
+    const palavraOxitona = !(palavraParoxitona || palavraProparoxitona);
+
     if (word.match(regex)) {
+      /**
+       * Se a palavra for oxítona,
+       * troca-se 'el' por 'éis'
+       */
+      if (pattern === 'el$' && palavraOxitona) {
+        return word.replace(regex, 'éis');
+      }
       /**
        * Se a palavra for paroxítona ou proparoxítona,
        * troca-se 'il' por 'eis'
        */
-      if (sub === 'is' && word.match(/([áéíóú])/)) {
+      if (pattern === 'il$' && (palavraParoxitona || palavraProparoxitona)) {
         return word.replace(regex, 'eis');
       }
 
