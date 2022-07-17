@@ -45,9 +45,13 @@ const silabaAtonica = `${consoantes}${vogais}+${consoantes}*`;
  */
 const substituicoes = [
   ['al$', 'ais'],
+  // oxítona + el
+  [`^(?!\\w*${silabaTonica}(${silabaAtonica})?el)(.+)el$`, '$2éis'],
   ['el$', 'eis'],
   ['ol$', 'óis'],
   ['ul$', 'uis'],
+  // paroxítona ou proparoxítona + il
+  [`(${silabaTonica}(${silabaAtonica})?)il$`, '$1eis'],
   ['il$', 'is'],
   ['m$', 'ns'],
   ['(ês|és)$', 'eses'],
@@ -73,28 +77,7 @@ const _plural = word => {
 
   for (const [pattern, sub] of substituicoes) {
     const regex = new RegExp(pattern);
-    const regexParoxitona = new RegExp(silabaTonica + pattern);
-    const regexProparoxitona = new RegExp(silabaTonica + silabaAtonica + pattern);
-    const palavraProparoxitona = word.match(regexProparoxitona);
-    const palavraParoxitona = word.match(regexParoxitona);
-    const palavraOxitona = !(palavraParoxitona || palavraProparoxitona);
-
     if (word.match(regex)) {
-      /**
-       * Se a palavra for oxítona,
-       * troca-se 'el' por 'éis'
-       */
-      if (pattern === 'el$' && palavraOxitona) {
-        return word.replace(regex, 'éis');
-      }
-      /**
-       * Se a palavra for paroxítona ou proparoxítona,
-       * troca-se 'il' por 'eis'
-       */
-      if (pattern === 'il$' && (palavraParoxitona || palavraProparoxitona)) {
-        return word.replace(regex, 'eis');
-      }
-
       return word.replace(regex, sub);
     }
   }
