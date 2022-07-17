@@ -8,10 +8,16 @@ $ npm install @umatch/pluralize-ptbr
 ```javascript
 const plural = require("./index");
 
-console.log(plural(2, 'mão'));   // '2 mãos'
-console.log(plural(3, 'Mamão')); // '3 Mamões'
+console.log(plural('mão'));      // 'mãos'
+console.log(plural('MaMão', 3)); // '3 MaMões'
+console.log(plural('bola', 0))   // '0 bolas'
+console.log(plural('bola', 0.5)) // '0.5 bola'
+console.log(plural('bola', 1))   // '1 bola'
 ```
 
-## Regras pendentes
+## Regras parcialmente implementadas
 - Regras que dependem da tonicidade das sílabas (e.g. paroxítonas)
 - Regras para substantivos compostos (e.g. cana-de-açúcar => canas-de-açúcar)
+
+## Regras pendentes
+- Regras para palavras terminadas em 'ão'

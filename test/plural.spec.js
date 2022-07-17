@@ -1,205 +1,224 @@
-const plural = require('../index');
+const plural = require('../src');
 
-// referência: https://www.normaculta.com.br/singular-e-plural/
+/**
+ * Referências:
+ * https://www.normaculta.com.br/singular-e-plural/
+ * https://www.todamateria.com.br/plural-dos-substantivos-compostos/
+ */
 
+// With quantity
+test('0 bola => 0 bolas', () => {
+  expect(plural('bola', 0)).toMatch(/0 bolas/);
+});
+test('0.5 bola => 0.5 bola', () => {
+  expect(plural('bola', 0.5)).toMatch(/0.5 bola/);
+});
+test('1 bola => 1 bola', () => {
+  expect(plural('bola', 1)).toMatch(/1 bola/);
+});
+test('2 bola => 2 bolas', () => {
+  expect(plural('bola', 2)).toMatch(/2 bolas/);
+});
+
+// Without quantity
 test('abdômen => abdomens ou abdômenes', () => {
-  expect(plural(2, 'abdômen')).toMatch(/2 (abdomens|abdômenes)/);
+  expect(plural('abdômen')).toMatch(/(abdomens|abdômenes)/);
 });
 test('alemão => alemães', () => {
-  expect(plural(2, 'alemão')).toMatch(/2 alemães/);
+  expect(plural('alemão')).toMatch(/alemães/);
 });
 test('aluguel => aluguéis', () => {
-  expect(plural(2, 'aluguel')).toMatch(/2 aluguéis/);
+  expect(plural('aluguel')).toMatch(/aluguéis/);
 });
 test('amiga => amigas', () => {
-  expect(plural(2, 'amiga')).toMatch(/2 amigas/);
+  expect(plural('amiga')).toMatch(/amigas/);
 });
 test('atlas => atlas', () => {
-  expect(plural(2, 'atlas')).toMatch(/2 atlas/);
+  expect(plural('atlas')).toMatch(/atlas/);
 });
 test('avestruz => avestruzes', () => {
-  expect(plural(2, 'avestruz')).toMatch(/2 avestruzes/);
+  expect(plural('avestruz')).toMatch(/avestruzes/);
 });
 test('açúcar => açúcares', () => {
-  expect(plural(2, 'açúcar')).toMatch(/2 açúcares/);
+  expect(plural('açúcar')).toMatch(/açúcares/);
 });
 test('bar => bares', () => {
-  expect(plural(2, 'bar')).toMatch(/2 bares/);
+  expect(plural('bar')).toMatch(/bares/);
 });
 test('bem => bens', () => {
-  expect(plural(2, 'bem')).toMatch(/2 bens/);
+  expect(plural('bem')).toMatch(/bens/);
 });
 test('bolo => bolos', () => {
-  expect(plural(2, 'bolo')).toMatch(/2 bolos/);
+  expect(plural('bolo')).toMatch(/bolos/);
 });
 test('bombom => bombons', () => {
-  expect(plural(2, 'bombom')).toMatch(/2 bombons/);
+  expect(plural('bombom')).toMatch(/bombons/);
 });
 test('cana-de-açúcar => canas-de-açúcar', () => {
-  expect(plural(2, 'cana-de-açúcar')).toMatch(/2 canas-de-açúcar/);
+  expect(plural('cana-de-açúcar')).toMatch(/canas-de-açúcar/);
 });
 test('canil => canis', () => {
-  expect(plural(2, 'canil')).toMatch(/2 canis/);
+  expect(plural('canil')).toMatch(/canis/);
 });
 test('capitão => capitães', () => {
-  expect(plural(2, 'capitão')).toMatch(/2 capitães/);
+  expect(plural('capitão')).toMatch(/capitães/);
 });
 test('caráter => carateres', () => {
-  expect(plural(2, 'caráter')).toMatch(/2 carateres/);
+  expect(plural('caráter')).toMatch(/carateres/);
 });
 test('charlatão => charlatões', () => {
-  expect(plural(2, 'charlatão')).toMatch(/2 charlatães/);
+  expect(plural('charlatão')).toMatch(/charlatães/);
 });
 test('cidadão => cidadãos', () => {
-  expect(plural(2, 'cidadão')).toMatch(/2 cidadãos/);
+  expect(plural('cidadão')).toMatch(/cidadãos/);
 });
 test('coração => corações', () => {
-  expect(plural(2, 'coração')).toMatch(/2 corações/);
+  expect(plural('coração')).toMatch(/corações/);
 });
 test('corrimão => corrimões ou corrimãos', () => {
-  expect(plural(2, 'corrimão')).toMatch(/2 (corrimões|corrimãos)/);
+  expect(plural('corrimão')).toMatch(/(corrimões|corrimãos)/);
 });
 test('cristão => cristãos', () => {
-  expect(plural(2, 'cristão')).toMatch(/2 cristãos/);
+  expect(plural('cristão')).toMatch(/cristãos/);
 });
 test('degrau => degraus', () => {
-  expect(plural(2, 'degrau')).toMatch(/2 degraus/);
+  expect(plural('degrau')).toMatch(/degraus/);
 });
 test('eleição => eleições', () => {
-  expect(plural(2, 'eleição')).toMatch(/2 eleições/);
+  expect(plural('eleição')).toMatch(/eleições/);
 });
 test('freguês => fregueses', () => {
-  expect(plural(2, 'freguês')).toMatch(/2 fregueses/);
+  expect(plural('freguês')).toMatch(/fregueses/);
 });
 test('fuzil => fuzis', () => {
-  expect(plural(2, 'fuzil')).toMatch(/2 fuzis/);
+  expect(plural('fuzil')).toMatch(/fuzis/);
 });
 test('féria => férias', () => {
-  expect(plural(2, 'féria')).toMatch(/2 férias/);
+  expect(plural('féria')).toMatch(/férias/);
 });
 test('fóssil => fósseis', () => {
-  expect(plural(2, 'fóssil')).toMatch(/2 fósseis/);
+  expect(plural('fóssil')).toMatch(/fósseis/);
 });
 test('garagem => garagens', () => {
-  expect(plural(2, 'garagem')).toMatch(/2 garagens/);
+  expect(plural('garagem')).toMatch(/garagens/);
 });
 test('gravidez => gravidezes', () => {
-  expect(plural(2, 'gravidez')).toMatch(/2 gravidezes/);
+  expect(plural('gravidez')).toMatch(/gravidezes/);
 });
 test('guardião => guardiões ou guardiães', () => {
-  expect(plural(2, 'guardião')).toMatch(/2 (guardiões|guardiães)/);
+  expect(plural('guardião')).toMatch(/(guardiões|guardiães)/);
 });
 test('hambúrguer => hambúrgueres', () => {
-  expect(plural(2, 'hambúrguer')).toMatch(/2 hambúrgueres/);
+  expect(plural('hambúrguer')).toMatch(/hambúrgueres/);
 });
 test('hífen => hífens', () => {
-  expect(plural(2, 'hífen')).toMatch(/2 (hifens|hífenes)/);
+  expect(plural('hífen')).toMatch(/(hifens|hífenes)/);
 });
 test('irmão => irmãos', () => {
-  expect(plural(2, 'irmão')).toMatch(/2 irmãos/);
+  expect(plural('irmão')).toMatch(/irmãos/);
 });
 test('jardim => jardins', () => {
-  expect(plural(2, 'jardim')).toMatch(/2 jardins/);
+  expect(plural('jardim')).toMatch(/jardins/);
 });
 test('júnior => juniores', () => {
-  expect(plural(2, 'júnior')).toMatch(/2 juniores/);
+  expect(plural('júnior')).toMatch(/juniores/);
 });
 test('lençol => lençóis', () => {
-  expect(plural(2, 'lençol')).toMatch(/2 lençóis/);
+  expect(plural('lençol')).toMatch(/lençóis/);
 });
 test('lápis => lápis', () => {
-  expect(plural(2, 'lápis')).toMatch(/2 lápis/);
+  expect(plural('lápis')).toMatch(/lápis/);
 });
 test('látex => látex', () => {
-  expect(plural(2, 'látex')).toMatch(/2 látex/);
+  expect(plural('látex')).toMatch(/látex/);
 });
 test('mar => mares', () => {
-  expect(plural(2, 'mar')).toMatch(/2 mares/);
+  expect(plural('mar')).toMatch(/mares/);
 });
 test('mulher => mulheres', () => {
-  expect(plural(2, 'mulher')).toMatch(/2 mulheres/);
+  expect(plural('mulher')).toMatch(/mulheres/);
 });
 test('míssil => mísseis', () => {
-  expect(plural(2, 'míssil')).toMatch(/2 mísseis/);
+  expect(plural('míssil')).toMatch(/mísseis/);
 });
 test('opinião => opiniões', () => {
-  expect(plural(2, 'opinião')).toMatch(/2 opiniões/);
+  expect(plural('opinião')).toMatch(/opiniões/);
 });
 test('ovo => ovos', () => {
-  expect(plural(2, 'ovo')).toMatch(/2 ovos/);
+  expect(plural('ovo')).toMatch(/ovos/);
 });
 test('país => países', () => {
-  expect(plural(2, 'país')).toMatch(/2 países/);
+  expect(plural('país')).toMatch(/países/);
 });
 test('pires => pires', () => {
-  expect(plural(2, 'pires')).toMatch(/2 pires/);
+  expect(plural('pires')).toMatch(/pires/);
 });
 test('português => portugueses', () => {
-  expect(plural(2, 'português')).toMatch(/2 portugueses/);
+  expect(plural('português')).toMatch(/portugueses/);
 });
 test('pão => pães', () => {
-  expect(plural(2, 'pão')).toMatch(/2 pães/);
+  expect(plural('pão')).toMatch(/pães/);
 });
 test('pólen => pólens ou pólenes', () => {
-  expect(plural(2, 'pólen')).toMatch(/2 (polens|pólenes)/);
+  expect(plural('pólen')).toMatch(/(polens|pólenes)/);
 });
 test('quebra-cabeça => quebra-cabeças', () => {
-  expect(plural(2, 'quebra-cabeça')).toMatch(/2 quebra-cabeças/);
+  expect(plural('quebra-cabeça')).toMatch(/quebra-cabeças/);
 });
 test('raiz => raízes', () => {
-  expect(plural(2, 'raiz')).toMatch(/2 raízes/);
+  expect(plural('raiz')).toMatch(/raízes/);
 });
 test('rapaz => rapazes', () => {
-  expect(plural(2, 'rapaz')).toMatch(/2 rapazes/);
+  expect(plural('rapaz')).toMatch(/rapazes/);
 });
 test('refil => refis', () => {
-  expect(plural(2, 'refil')).toMatch(/2 refis/);
+  expect(plural('refil')).toMatch(/refis/);
 });
 test('refrão => refrãos ou refrães', () => {
-  expect(plural(2, 'refrão')).toMatch(/2 (refrãos|refrães)/);
+  expect(plural('refrão')).toMatch(/(refrãos|refrães)/);
 });
 test('revés => reveses', () => {
-  expect(plural(2, 'revés')).toMatch(/2 reveses/);
+  expect(plural('revés')).toMatch(/reveses/);
 });
 test('réptil => répteis', () => {
-  expect(plural(2, 'réptil')).toMatch(/2 répteis/);
+  expect(plural('réptil')).toMatch(/répteis/);
 });
 test('segunda-feira => segundas-feiras', () => {
-  expect(plural(2, 'segunda-feira')).toMatch(/2 segundas-feiras/);
+  expect(plural('segunda-feira')).toMatch(/segundas-feiras/);
 });
 test('sênior => seniores', () => {
-  expect(plural(2, 'sênior')).toMatch(/2 seniores/);
+  expect(plural('sênior')).toMatch(/seniores/);
 });
 test('sótão => sótãos', () => {
-  expect(plural(2, 'sótão')).toMatch(/2 sótãos/);
+  expect(plural('sótão')).toMatch(/sótãos/);
 });
 test('troféu => troféus', () => {
-  expect(plural(2, 'troféu')).toMatch(/2 troféus/);
+  expect(plural('troféu')).toMatch(/troféus/);
 });
 test('tórax => tórax', () => {
-  expect(plural(2, 'tórax')).toMatch(/2 tórax/);
+  expect(plural('tórax')).toMatch(/tórax/);
 });
 test('varal => varais', () => {
-  expect(plural(2, 'varal')).toMatch(/2 varais/);
+  expect(plural('varal')).toMatch(/varais/);
 });
 test('variável => variáveis', () => {
-  expect(plural(2, 'variável')).toMatch(/2 variáveis/);
+  expect(plural('variável')).toMatch(/variáveis/);
 });
 test('vilão => vilões, vilães ou vilãos', () => {
-  expect(plural(2, 'vilão')).toMatch(/2 (vilões|vilães|vilãos)/);
+  expect(plural('vilão')).toMatch(/(vilões|vilães|vilãos)/);
 });
 test('vírus => vírus', () => {
-  expect(plural(2, 'vírus')).toMatch(/2 vírus/);
+  expect(plural('vírus')).toMatch(/vírus/);
 });
 test('órfão => órfãos', () => {
-  expect(plural(2, 'órfão')).toMatch(/2 órfãos/);
+  expect(plural('órfão')).toMatch(/órfãos/);
 });
 test('órgão => órgãos', () => {
-  expect(plural(2, 'órgão')).toMatch(/2 órgãos/);
+  expect(plural('órgão')).toMatch(/órgãos/);
 });
 test('ônibus => ônibus', () => {
-  expect(plural(2, 'ônibus')).toMatch(/2 ônibus/);
+  expect(plural('ônibus')).toMatch(/ônibus/);
 });
 test('ônix => ônix', () => {
-  expect(plural(2, 'ônix')).toMatch(/2 ônix/);
+  expect(plural('ônix')).toMatch(/ônix/);
 });
