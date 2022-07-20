@@ -1,6 +1,6 @@
 {
   "name": "@umatch/pluralize-ptbr",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Obtenha o plural de palavras em português brasileiro",
   "main": "src/index.js",
   "files": ["src/"],
