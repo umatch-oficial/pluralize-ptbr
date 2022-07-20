@@ -13,25 +13,20 @@ const excecoes = {
   cal: 'cais',
   capitão: 'capitães',
   caráter: 'carateres',
+  cidadão: 'cidadãos',
   charlatão: 'charlatães',
   cônsul: 'cônsules',
+  cristão: 'cristãos',
   fel: 'féis',
+  irmão: 'irmãos',
   júnior: 'juniores',
   mal: 'males',
   mel: 'méis',
   pão: 'pães',
   raiz: 'raízes',
+  refrão: 'refrãos',
   sênior: 'seniores',
 };
-
-/**
- * Palavras com as seguintes terminações:
- * adicionar 's' ou 'es' no final
- */
-const adicoes = [
-  [/(a|e|i|o|u|ã|ãe)$/, 's'],
-  [/(r|z|n|ás|ís)$/, 'es'],
-];
 
 const consoantes = '[bcdfghjklmnpqrstvwxyz]';
 const vogais = '[aeiou]';
@@ -55,7 +50,18 @@ const substituicoes = [
   ['il$', 'is'],
   ['m$', 'ns'],
   ['(ês|és)$', 'eses'],
+  // paroxítona + ão
+  [`(${silabaTonica}?)ão$`, '$1ãos'],
   ['ão$', 'ões'],
+];
+
+/**
+ * Palavras com as seguintes terminações:
+ * adicionar 's' ou 'es' no final
+ */
+const adicoes = [
+  [/(a|e|i|o|u|ã|ãe)$/, 's'],
+  [/(r|z|n|ás|ís)$/, 'es'],
 ];
 
 const _plural = word => {
@@ -69,16 +75,16 @@ const _plural = word => {
     return excecoes[word];
   }
 
-  for (const [regex, addition] of adicoes) {
-    if (word.match(regex)) {
-      return word + addition;
-    }
-  }
-
   for (const [pattern, sub] of substituicoes) {
     const regex = new RegExp(pattern);
     if (word.match(regex)) {
       return word.replace(regex, sub);
+    }
+  }
+
+  for (const [regex, addition] of adicoes) {
+    if (word.match(regex)) {
+      return word + addition;
     }
   }
 

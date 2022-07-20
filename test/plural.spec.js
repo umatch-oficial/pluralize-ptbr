@@ -144,6 +144,18 @@ test('míssil => mísseis', () => {
 test('opinião => opiniões', () => {
   expect(plural('opinião')).toMatch(/opiniões/);
 });
+test('ônibus => ônibus', () => {
+  expect(plural('ônibus')).toMatch(/ônibus/);
+});
+test('ônix => ônix', () => {
+  expect(plural('ônix')).toMatch(/ônix/);
+});
+test('órfão => órfãos', () => {
+  expect(plural('órfão')).toMatch(/órfãos/);
+});
+test('órgão => órgãos', () => {
+  expect(plural('órgão')).toMatch(/órgãos/);
+});
 test('ovo => ovos', () => {
   expect(plural('ovo')).toMatch(/ovos/);
 });
@@ -209,16 +221,4 @@ test('vilão => vilões, vilães ou vilãos', () => {
 });
 test('vírus => vírus', () => {
   expect(plural('vírus')).toMatch(/vírus/);
-});
-test('órfão => órfãos', () => {
-  expect(plural('órfão')).toMatch(/órfãos/);
-});
-test('órgão => órgãos', () => {
-  expect(plural('órgão')).toMatch(/órgãos/);
-});
-test('ônibus => ônibus', () => {
-  expect(plural('ônibus')).toMatch(/ônibus/);
-});
-test('ônix => ônix', () => {
-  expect(plural('ônix')).toMatch(/ônix/);
 });
