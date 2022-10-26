@@ -18,7 +18,11 @@
   "homepage": "https://github.com/umatch-oficial/pluralize-ptbr#readme",
   "repository": "github:umatch-oficial/pluralize-ptbr",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {},
   "devDependencies": {
