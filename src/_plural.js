@@ -1,14 +1,36 @@
 // noinspection JSNonASCIINames,NonAsciiCharacters
 
+const PREPOSITIONS = [
+  'a',
+  'ante',
+  'após',
+  'até',
+  'com',
+  'contra',
+  'da',
+  'de',
+  'do',
+  'desde',
+  'em',
+  'entre',
+  'para',
+  'perante',
+  'por',
+  'sem',
+  'sob',
+  'sobre',
+  'trás',
+];
+
 /**
  * Palavras que não alteram no plural.
  */
-const noop = [/^não$/, /(as|is|us|os|x)$/];
+const NOOP = [/^não$/, /(as|is|us|os|x)$/];
 
 /**
  * Palavras com plural pré-determinado.
  */
-const excecoes = {
+const EXCEPTIONS = {
   alemão: 'alemães',
   cal: 'cais',
   capitão: 'capitães',
@@ -36,9 +58,9 @@ const silabaAtonica = `${consoantes}${vogais}+${consoantes}*`;
 
 /**
  * Palavras com as seguintes terminações:
- * substituir a terminação
+ * substituir a terminação.
  */
-const substituicoes = [
+const SUBSTITUTIONS = [
   ['al$', 'ais'],
   // oxítona + el
   [`^(?!\\w*${silabaTonica}(${silabaAtonica})?el)(.+)el$`, '$2éis'],
@@ -51,44 +73,77 @@ const substituicoes = [
   ['m$', 'ns'],
   ['(ês|és)$', 'eses'],
   // paroxítona + ão
-  [`(${silabaTonica}?)ão$`, '$1ãos'],
+  [`(${silabaTonica})ão$`, '$1ãos'],
   ['ão$', 'ões'],
 ];
 
 /**
  * Palavras com as seguintes terminações:
- * adicionar 's' ou 'es' no final
+ * adicionar 's' ou 'es' no final.
  */
-const adicoes = [
+const ADDITIONS = [
   [/(a|e|i|o|u|ã|ãe)$/, 's'],
   [/(r|z|n|ás|ís)$/, 'es'],
 ];
 
-const _plural = word => {
-  for (const regex of noop) {
+const _pluralSingleWord = word => {
+  for (const regex of NOOP) {
     if (word.match(regex)) {
       return word;
     }
   }
 
-  if (Object.keys(excecoes).includes(word)) {
-    return excecoes[word];
+  if (Object.keys(EXCEPTIONS).includes(word)) {
+    return EXCEPTIONS[word];
   }
 
-  for (const [pattern, sub] of substituicoes) {
+  for (const [pattern, sub] of SUBSTITUTIONS) {
     const regex = new RegExp(pattern);
     if (word.match(regex)) {
       return word.replace(regex, sub);
     }
   }
 
-  for (const [regex, addition] of adicoes) {
+  for (const [regex, addition] of ADDITIONS) {
     if (word.match(regex)) {
       return word + addition;
     }
   }
 
   return word + 's';
+};
+
+/**
+ * Returns the plural of a string, which can be a single or a
+ * compound word.
+ */
+const _plural = string => {
+  const parts = string.split(/(\s|-)+/);
+  const plurals = parts.map(_pluralSingleWord);
+  switch (parts.length) {
+    case 5:
+      // words separated by preposition
+      if (PREPOSITIONS.includes(parts[2])) {
+        // the first part is pluralized
+        return [plurals[0], ...parts.slice(1)].join('');
+      } else {
+        // the last part is pluralized
+        return [...parts.slice(0, 4), plurals[4]].join('');
+      }
+    case 3:
+      // the days of the week
+      if (parts[2] === 'feira') {
+        // both parts are pluralized
+        return [plurals[0], parts[1], plurals[2]].join('');
+      } else {
+        // the last part is pluralized
+        return [...parts.slice(0, 2), plurals[2]].join('');
+      }
+    case 1:
+      return plurals[0];
+    default:
+      throw new Error('Word has too many parts');
+  }
 };
 
 module.exports = _plural;
