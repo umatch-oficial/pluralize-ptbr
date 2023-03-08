@@ -1,4 +1,4 @@
-const plural = require('../src');
+import plural from '../src';
 
 /**
  * Referências:

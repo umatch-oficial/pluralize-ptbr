@@ -86,14 +86,21 @@ const ADDITIONS = [
   [/(r|z|n|ás|ís)$/, 'es'],
 ];
 
-const _pluralSingleWord = word => {
+function isKeyOf<T extends { [_: string]: unknown }>(
+  obj: T,
+  key: string,
+): key is keyof T & string {
+  return key in obj;
+}
+
+function _pluralSingleWord(word: string): string {
   for (const regex of NOOP) {
     if (word.match(regex)) {
       return word;
     }
   }
 
-  if (Object.keys(EXCEPTIONS).includes(word)) {
+  if (isKeyOf(EXCEPTIONS, word)) {
     return EXCEPTIONS[word];
   }
 
@@ -111,13 +118,13 @@ const _pluralSingleWord = word => {
   }
 
   return word + 's';
-};
+}
 
 /**
  * Returns the plural of a string, which can be a single or a
  * compound word.
  */
-const _plural = string => {
+export default function _plural(string: string): string {
   const parts = string.split(/(\s|-)+/);
   const plurals = parts.map(_pluralSingleWord);
   switch (parts.length) {
@@ -144,6 +151,4 @@ const _plural = string => {
     default:
       throw new Error('Word has too many parts');
   }
-};
-
-module.exports = _plural;
+}

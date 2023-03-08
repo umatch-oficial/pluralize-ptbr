@@ -2,10 +2,8 @@
   "name": "@umatch/pluralize-ptbr",
   "version": "0.1.5",
   "description": "Obtenha o plural de palavras em português brasileiro",
-  "main": "src/index.js",
-  "files": [
-    "src/"
-  ],
+  "author": "Umatch",
+  "license": "UNLICENSED",
   "keywords": [
     "pluralize",
     "plural",
@@ -13,26 +11,39 @@
     "pt-br",
     "ptbr"
   ],
-  "author": "Umatch",
-  "license": "UNLICENSED",
   "homepage": "https://github.com/umatch-oficial/pluralize-ptbr#readme",
   "repository": "github:umatch-oficial/pluralize-ptbr",
+  "main": "./lib/index.js",
+  "files": [
+    "lib/**/*.ts",
+    "lib/**/*.ts.map",
+    "lib/**/*.js"
+  ],
   "scripts": {
+    "build": "tsc --build src",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "eslint . --ext=.ts",
     "prepublishOnly": "npm test && npm run lint",
+    "prepare": "npm run build",
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@types/jest": "^29.2.0",
+    "@types/node": "^18.14.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.5.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.5"
   },
   "config": {
     "commitizen": {
