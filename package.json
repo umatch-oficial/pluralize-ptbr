@@ -24,13 +24,19 @@
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^29.2.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.3",
     "prettier": "^2.7.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
