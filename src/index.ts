@@ -25,18 +25,14 @@ function capitalize(string: string, positions: boolean[]): string {
 /**
  * Returns the plural form of the word.
  *
- * If quantity is given, it prefixes the output. The word is only
- * pluralized if |quantity| > 1.
+ * The word is only pluralized if quantity is undefined, 0 or greater than 1.
+ *
+ * *Warning*: expects single or compound words, not whole sentences.
  */
-export default function plural(word: string, quantity: number | null = null): string {
-  if (quantity && Math.abs(quantity) <= 1 && Math.abs(quantity) !== 0) {
-    return `${quantity} ${word}`;
-  }
+export default function plural(word: string, quantity?: number): string {
+  if (quantity && Math.abs(quantity) <= 1) return word;
 
-  const trimmed = word.trim();
-  const [lowerCase, caps] = decapitalize(trimmed);
+  const [lowerCase, caps] = decapitalize(word);
   const pluralized = _plural(lowerCase);
-  const originalCased = capitalize(pluralized, caps);
-
-  return `${quantity !== null ? quantity + ' ' : ''}${originalCased}`;
+  return capitalize(pluralized, caps);
 }

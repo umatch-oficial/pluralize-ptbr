@@ -1,10 +1,10 @@
 import plural from '../src';
 
 describe.each([
-  ['bola', 0, /0 bolas/],
-  ['bola', 0.5, /0.5 bola/],
-  ['bola', 1, /1 bola/],
-  ['bola', 2, /2 bolas/],
+  ['bola', 0, /bolas/],
+  ['bola', 0.5, /bola/],
+  ['bola', 1, /bola/],
+  ['bola', 2, /bolas/],
 ])('com quantidade', (word, quantity, res) => {
   test(`plural('${word}', ${quantity}) = ${res.toString().replace(/\//g, "'")}`, () => {
     expect(plural(word, quantity)).toMatch(res);
