@@ -15,6 +15,7 @@
   "repository": "github:umatch-oficial/pluralize-ptbr",
   "main": "./lib/index.js",
   "files": [
+    "src/**/*.ts",
     "lib/**/*.ts",
     "lib/**/*.ts.map",
     "lib/**/*.js"
