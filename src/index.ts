@@ -16,9 +16,8 @@ function decapitalize(string: string): [string, boolean[]] {
  * the correct positions.
  */
 function capitalize(string: string, positions: boolean[]): string {
-  const letters = string.split('');
-
-  return letters
+  return string
+    .split('')
     .map((letter, i) => (positions[i] ? letter.toUpperCase() : letter))
     .join('');
 }

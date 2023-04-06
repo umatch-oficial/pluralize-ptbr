@@ -1,5 +1,5 @@
 # Pluralize-ptbr
-Obtenha o plural de palavras em português brasileiro (forked from https://www.npmjs.com/package/pluralize-ptbr)
+Get the plural form of portuguese words (forked from https://www.npmjs.com/package/pluralize-ptbr)
 
 ```
 $ npm install @umatch/pluralize-ptbr
@@ -15,9 +15,9 @@ console.log(plural('bola', 0.5)) // '0.5 bola'
 console.log(plural('bola', 1))   // '1 bola'
 ```
 
-## Regras parcialmente implementadas
-- Regras que dependem da tonicidade das sílabas (e.g. paroxítonas)
-- Regras para substantivos compostos (e.g. cana-de-açúcar => canas-de-açúcar)
+## Partially implemented rules
+- Rules that depend on the stress of the syllables (e.g. for paroxytone words).
+- Rules for compound nouns (e.g. cana-de-açúcar => canas-de-açúcar).
 
-## Regras pendentes
-- Regras para palavras terminadas em 'ão'
+## Pending rules
+- Rules for words ending in 'ão'

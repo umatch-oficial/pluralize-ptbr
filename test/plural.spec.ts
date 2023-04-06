@@ -1,11 +1,5 @@
 import plural from '../src';
 
-/**
- * Referências:
- * https://www.normaculta.com.br/singular-e-plural/
- * https://www.todamateria.com.br/plural-dos-substantivos-compostos/
- */
-
 describe.each([
   ['bola', 0, /0 bolas/],
   ['bola', 0.5, /0.5 bola/],

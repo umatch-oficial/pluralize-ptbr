@@ -1,5 +1,11 @@
 // noinspection JSNonASCIINames,NonAsciiCharacters
 
+/**
+ * References for the rules:
+ * https://www.normaculta.com.br/singular-e-plural/
+ * https://www.todamateria.com.br/plural-dos-substantivos-compostos/
+ */
+
 const PREPOSITIONS = [
   'a',
   'ante',
@@ -23,14 +29,14 @@ const PREPOSITIONS = [
 ];
 
 /**
- * Palavras que não alteram no plural.
+ * Words with an invariant plural form.
  */
 const NOOP = [/^não$/, /(as|is|us|os|x)$/];
 
 /**
- * Palavras com plural pré-determinado.
+ * Words whose plural does not abide to any rule.
  */
-const EXCEPTIONS = {
+const EXCEPTIONS: { [_: string]: string } = {
   alemão: 'alemães',
   cal: 'cais',
   capitão: 'capitães',
@@ -50,49 +56,44 @@ const EXCEPTIONS = {
   sênior: 'seniores',
 };
 
-const consoantes = '[bcdfghjklmnpqrstvwxyz]';
-const vogais = '[aeiou]';
-const vogaisAcentuadas = '[áéíóú]';
-const silabaTonica = `${consoantes}*${vogais}*${vogaisAcentuadas}+${vogais}*${consoantes}*`;
-const silabaAtonica = `${consoantes}${vogais}+${consoantes}*`;
+const consonant = '[bcdfghjklmnpqrstvwxyz]';
+const vowel = '[aeiou]';
+const accentedVowel = '[áéíóú]';
+const stressedSyllable = `${consonant}*${vowel}*${accentedVowel}+${vowel}*${consonant}*`;
+const unstressedSyllable = `${consonant}${vowel}+${consonant}*`;
 
 /**
- * Palavras com as seguintes terminações:
- * substituir a terminação.
+ * Words that end with the left pattern: substitute it by the right pattern.
  */
 const SUBSTITUTIONS = [
   ['al$', 'ais'],
-  // oxítona + el
-  [`^(?!\\w*${silabaTonica}(${silabaAtonica})?el)(.+)el$`, '$2éis'],
+  // oxytone + el
+  [`^(?!\\w*${stressedSyllable}(${unstressedSyllable})?el)(.+)el$`, '$2éis'],
   ['el$', 'eis'],
   ['ol$', 'óis'],
   ['ul$', 'uis'],
-  // paroxítona ou proparoxítona + il
-  [`(${silabaTonica}(${silabaAtonica})?)il$`, '$1eis'],
+  // paroxytone or properoxytone + il
+  [`(${stressedSyllable}(${unstressedSyllable})?)il$`, '$1eis'],
   ['il$', 'is'],
   ['m$', 'ns'],
   ['(ês|és)$', 'eses'],
-  // paroxítona + ão
-  [`(${silabaTonica})ão$`, '$1ãos'],
+  // paroxytone + ão
+  [`(${stressedSyllable})ão$`, '$1ãos'],
   ['ão$', 'ões'],
 ];
 
 /**
- * Palavras com as seguintes terminações:
- * adicionar 's' ou 'es' no final.
+ * Words that end with the left character/diphthong: append 's' or 'es'.
  */
 const ADDITIONS = [
   [/(a|e|i|o|u|ã|ãe)$/, 's'],
   [/(r|z|n|ás|ís)$/, 'es'],
 ];
 
-function isKeyOf<T extends { [_: string]: unknown }>(
-  obj: T,
-  key: string,
-): key is keyof T & string {
-  return key in obj;
-}
-
+/**
+ * Applies the first matching rule from the above. If none match,
+ * appends 's'.
+ */
 function _pluralSingleWord(word: string): string {
   for (const regex of NOOP) {
     if (word.match(regex)) {
@@ -100,7 +101,7 @@ function _pluralSingleWord(word: string): string {
     }
   }
 
-  if (isKeyOf(EXCEPTIONS, word)) {
+  if (word in EXCEPTIONS) {
     return EXCEPTIONS[word];
   }
 
