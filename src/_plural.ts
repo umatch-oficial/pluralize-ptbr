@@ -124,24 +124,24 @@ function _pluralSingleWord(word: string): string {
 /**
  * Returns the plural of a string, which can be a single or a
  * compound word.
+ *
+ * @throws if splitting the string by spaces or dashes produces more than 3 words.
  */
 export default function _plural(string: string): string {
-  const parts = string.split(/(\s|-)+/);
+  const parts = string.split(/(\s|-)+/); // words AND separators (e.g. ['terça', '-', 'feira'])
   const plurals = parts.map(_pluralSingleWord);
   switch (parts.length) {
     case 5:
-      // words separated by preposition
       if (PREPOSITIONS.includes(parts[2])) {
-        // the first part is pluralized
+        // words separated by a preposition — the first part is pluralized
         return [plurals[0], ...parts.slice(1)].join('');
       } else {
         // the last part is pluralized
         return [...parts.slice(0, 4), plurals[4]].join('');
       }
     case 3:
-      // the days of the week
       if (parts[2] === 'feira') {
-        // both parts are pluralized
+        // the days of the week — both parts are pluralized
         return [plurals[0], parts[1], plurals[2]].join('');
       } else {
         // the last part is pluralized

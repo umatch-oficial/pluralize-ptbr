@@ -28,6 +28,7 @@ function capitalize(string: string, positions: boolean[]): string {
  * The word is only pluralized if quantity is undefined, 0 or greater than 1.
  *
  * *Warning*: expects single or compound words, not whole sentences.
+ * @throws if splitting the string by spaces or dashes produces more than 3 words.
  */
 export default function plural(word: string, quantity?: number): string {
   if (quantity && Math.abs(quantity) <= 1) return word;
