@@ -1,6 +1,17 @@
 import plural from '../src';
 
 describe.each([
+  ['o homem', 1, 'os homens', /o homem/],
+  ['o homem', 2, 'os homens', /os homens/],
+])('com plural definido', (word, quantity, customPlural, res) => {
+  test(`plural('${word}', ${quantity}, '${customPlural}') = ${res
+    .toString()
+    .replace(/\//g, "'")}`, () => {
+    expect(plural(word, quantity, customPlural)).toMatch(res);
+  });
+});
+
+describe.each([
   ['bola', 0, /bolas/],
   ['bola', 0.5, /bola/],
   ['bola', 1, /bola/],
