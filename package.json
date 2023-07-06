@@ -23,8 +23,9 @@
   "scripts": {
     "build": "tsc --build src",
     "test": "jest",
-    "lint": "eslint . --ext=.ts",
-    "prepublishOnly": "npm run lint && npm run build && npm test",
+    "lint": "eslint --fix . --ext=.ts",
+    "format": "prettier --write --cache --loglevel warn --cache-strategy metadata --config ./.prettierrc.js .",
+    "prepublishOnly": "npm run lint && npm run format && npm run build && npm test",
     "prepare": "npm run build",
     "push-publish": "git push --follow-tags && npm publish --ignore-scripts",
     "release": "npm run lint && npm run build && npm test && commit-and-tag-version"
