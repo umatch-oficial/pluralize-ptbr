@@ -23,12 +23,12 @@
   "scripts": {
     "build": "tsc --build src",
     "test": "jest",
-    "lint": "eslint --fix . --ext=.ts",
-    "format": "prettier --write --cache --loglevel warn --cache-strategy metadata --config ./.prettierrc.js .",
-    "prepublishOnly": "npm run lint && npm run format && npm run build && npm test",
-    "prepare": "npm run build",
-    "push-publish": "git push --follow-tags && npm publish --ignore-scripts",
-    "release": "npm run lint && npm run build && npm test && commit-and-tag-version"
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --check --loglevel warn --cache --cache-strategy metadata --config ./.prettierrc.js .",
+    "prepublishOnly": "pnpm lint && pnpm format && pnpm build && pnpm test",
+    "prepare": "pnpm build",
+    "push-publish": "git push --follow-tags && pnpm publish --ignore-scripts",
+    "release": "pnpm prepublishOnly && npx commit-and-tag-version -a"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
