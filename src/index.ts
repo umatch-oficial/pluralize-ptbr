@@ -25,19 +25,18 @@ function capitalize(string: string, positions: boolean[]): string {
 /**
  * Returns the plural form of the word.
  *
- * The word is only pluralized if quantity is undefined, 0 or greater
- * than 1. Uses the custom plural form if provided.
+ * The word is only pluralized if quantity is undefined or not 1. Uses
+ * the custom plural form if provided.
  *
  * *Warning*: expects single or compound words, not whole sentences.
- * @throws if splitting the string by spaces or dashes produces more than 3 words.
+ * @throws {Error} if splitting the string by spaces or dashes produces more than 3 words.
  */
 export default function plural(
   word: string,
   quantity?: number,
   customPlural?: string,
 ): string {
-  const shouldPluralize =
-    quantity === undefined || quantity === 0 || Math.abs(quantity) > 1;
+  const shouldPluralize = quantity === undefined || Math.abs(quantity) !== 1;
 
   if (shouldPluralize) {
     if (customPlural !== undefined) return customPlural;

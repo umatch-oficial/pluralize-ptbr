@@ -13,7 +13,7 @@ describe.each([
 
 describe.each([
   ['bola', 0, /bolas/],
-  ['bola', 0.5, /bola/],
+  ['bola', 0.5, /bolas/],
   ['bola', 1, /bola/],
   ['bola', 2, /bolas/],
 ])('com quantidade', (word, quantity, res) => {
