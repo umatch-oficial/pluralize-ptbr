@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/umatch-oficial/pluralize-ptbr/compare/v2.1.0...v3.0.0) (2024-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* no longer uses default exports.
+
+* reorganize and remove default exports ([8fc7898](https://github.com/umatch-oficial/pluralize-ptbr/commit/8fc78981d8ccb78ca7a2bca2ded5eab8a1b6ec94))
+
+
+### Bug Fixes
+
+* only pluralize if |quantity| != 1 ([eac1d90](https://github.com/umatch-oficial/pluralize-ptbr/commit/eac1d9085c6f987ed2a7cb4bbfd6ec8becffa7c3))
+
 ## [2.1.0](https://github.com/umatch-oficial/pluralize-ptbr/compare/v2.0.0...v2.1.0) (2023-07-06)
 
 
