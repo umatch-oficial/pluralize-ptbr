@@ -1,11 +1,5 @@
 // noinspection JSNonASCIINames,NonAsciiCharacters
 
-/**
- * References for the rules:
- * https://www.normaculta.com.br/singular-e-plural/
- * https://www.todamateria.com.br/plural-dos-substantivos-compostos/
- */
-
 const PREPOSITIONS = [
   'a',
   'ante',
@@ -27,6 +21,45 @@ const PREPOSITIONS = [
   'sobre',
   'trás',
 ];
+
+/**
+ * Returns the plural of a string, which can be a single or a
+ * compound word.
+ *
+ * @throws {Error} if splitting the string by spaces or dashes produces more than 3 words.
+ */
+export function _plural(string: string): string {
+  const parts = string.split(/(\s|-)+/); // words AND separators (e.g. ['terça', '-', 'feira'])
+  const plurals = parts.map(pluralSingleWord);
+  switch (parts.length) {
+    case 5:
+      if (PREPOSITIONS.includes(parts[2])) {
+        // words separated by a preposition — the first part is pluralized
+        return [plurals[0], ...parts.slice(1)].join('');
+      } else {
+        // the last part is pluralized
+        return [...parts.slice(0, 4), plurals[4]].join('');
+      }
+    case 3:
+      if (parts[2] === 'feira') {
+        // the days of the week — both parts are pluralized
+        return [plurals[0], parts[1], plurals[2]].join('');
+      } else {
+        // the last part is pluralized
+        return [...parts.slice(0, 2), plurals[2]].join('');
+      }
+    case 1:
+      return plurals[0];
+    default:
+      throw new Error('Word has too many parts');
+  }
+}
+
+/**
+ * References for the rules:
+ * https://www.normaculta.com.br/singular-e-plural/
+ * https://www.todamateria.com.br/plural-dos-substantivos-compostos/
+ */
 
 /**
  * Words with an invariant plural form.
@@ -94,7 +127,7 @@ const ADDITIONS = [
  * Applies the first matching rule from the above. If none match,
  * appends 's'.
  */
-function _pluralSingleWord(word: string): string {
+function pluralSingleWord(word: string): string {
   for (const regex of NOOP) {
     if (word.match(regex)) {
       return word;
@@ -119,37 +152,4 @@ function _pluralSingleWord(word: string): string {
   }
 
   return word + 's';
-}
-
-/**
- * Returns the plural of a string, which can be a single or a
- * compound word.
- *
- * @throws if splitting the string by spaces or dashes produces more than 3 words.
- */
-export default function _plural(string: string): string {
-  const parts = string.split(/(\s|-)+/); // words AND separators (e.g. ['terça', '-', 'feira'])
-  const plurals = parts.map(_pluralSingleWord);
-  switch (parts.length) {
-    case 5:
-      if (PREPOSITIONS.includes(parts[2])) {
-        // words separated by a preposition — the first part is pluralized
-        return [plurals[0], ...parts.slice(1)].join('');
-      } else {
-        // the last part is pluralized
-        return [...parts.slice(0, 4), plurals[4]].join('');
-      }
-    case 3:
-      if (parts[2] === 'feira') {
-        // the days of the week — both parts are pluralized
-        return [plurals[0], parts[1], plurals[2]].join('');
-      } else {
-        // the last part is pluralized
-        return [...parts.slice(0, 2), plurals[2]].join('');
-      }
-    case 1:
-      return plurals[0];
-    default:
-      throw new Error('Word has too many parts');
-  }
 }

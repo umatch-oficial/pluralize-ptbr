@@ -1,4 +1,4 @@
-import plural from '../src';
+import { plural } from '../src';
 
 describe.each([
   ['o homem', 1, 'os homens', /o homem/],
