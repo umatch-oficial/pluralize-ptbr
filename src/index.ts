@@ -1,4 +1,4 @@
-import { _plural } from './_plural';
+import { getPluralForm } from './plural';
 
 /**
  * Returns the plural form of the word.
@@ -16,7 +16,7 @@ export function plural(word: string, quantity?: number, customPlural?: string): 
     if (customPlural !== undefined) return customPlural;
 
     const [lowerCase, caps] = uncapitalize(word);
-    const pluralized = _plural(lowerCase);
+    const pluralized = getPluralForm(lowerCase);
     return capitalize(pluralized, caps);
   } else {
     return word;

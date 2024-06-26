@@ -28,7 +28,7 @@ const PREPOSITIONS = [
  *
  * @throws {Error} if splitting the string by spaces or dashes produces more than 3 words.
  */
-export function _plural(string: string): string {
+export function getPluralForm(string: string): string {
   const parts = string.split(/(\s|-)+/); // words AND separators (e.g. ['terça', '-', 'feira'])
   const plurals = parts.map(pluralSingleWord);
   switch (parts.length) {
