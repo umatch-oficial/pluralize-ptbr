@@ -1,4 +1,7 @@
+import { ordinal } from './ordinal';
 import { getPluralForm } from './plural';
+
+export { ordinal };
 
 /**
  * Returns the plural form of the word.
