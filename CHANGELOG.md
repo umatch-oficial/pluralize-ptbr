@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/umatch-oficial/pluralize-ptbr/compare/v3.0.0...v3.1.0) (2024-06-26)
+
+
+### Features
+
+* add ordinal() ([57f46f0](https://github.com/umatch-oficial/pluralize-ptbr/commit/57f46f0126e6d28b7b80533abc3767165dceee58))
+
 ## [3.0.0](https://github.com/umatch-oficial/pluralize-ptbr/compare/v2.1.0...v3.0.0) (2024-04-30)
 
 
